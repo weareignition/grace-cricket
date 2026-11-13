@@ -8,7 +8,9 @@
     "check": "shopify theme check",
     "pull": "shopify theme pull",
     "push": "shopify theme push --unpublished",
-    "list": "shopify theme list"
+    "list": "shopify theme list",
+    "store:auth": "shopify store auth --scopes write_products,write_publications,write_online_store_pages,write_online_store_navigation,read_legal_policies",
+    "store:setup": "node scripts/setup-store.mjs"
   },
   "devDependencies": {
     "@shopify/cli": "^5.0.1"
