@@ -1,0 +1,96 @@
+{
+  "sections": {
+    "hero": {
+      "type": "grace-page-hero",
+      "settings": {
+        "eyebrow": "The Method",
+        "heading": "The simplicity of something complex.",
+        "text": "Grace is chief engineer to the country's best. Every bat is the sum of a method Pete has spent a lifetime refining, in the relentless hunt for the 1% that turns an out into a six.",
+        "button_label": "Find your fit",
+        "button_link": "/pages/find-your-fit",
+        "tight": false
+      }
+    },
+    "engineer": {
+      "type": "grace-panel",
+      "settings": {
+        "eyebrow": "The engineer",
+        "heading": "One engineer. Every car.",
+        "heading_level": "h2",
+        "text": "Picture the best Formula 1 drivers in the world, each racing a different car. Pete has been chief engineer and pit crew for all of them. Grace Cricket is the culmination of that: a maker who has worked on every car, now building his own.",
+        "caption": "Grace / the engineer",
+        "align": "left",
+        "tone": "blue",
+        "height": "medium"
+      }
+    },
+    "pillars": {
+      "type": "grace-numbered-list",
+      "blocks": {
+        "n1": { "type": "item", "settings": { "title": "Process", "text": "Organised steps, led by research into what the best players actually need. Pete quantifies what he believes delivers performance, then builds to it. Logical, and simple." } },
+        "n2": { "type": "item", "settings": { "title": "Performance", "text": "A better bat lifts performance through confidence and evidence. This is the 1%: a few more horsepower into the bat, the fractional edge that decides six or out." } },
+        "n3": { "type": "item", "settings": { "title": "Innovation", "text": "Constant evolution. Always adjusting for improvement, always hunting the next unicorn: better grip, less sweat, lighter gear, a truer middle." } },
+        "n4": { "type": "item", "settings": { "title": "Data", "text": "Figures up front, chosen by more of the best than any other. Specs and transparency now, and more as the proof builds over time. No bull." } }
+      },
+      "block_order": ["n1", "n2", "n3", "n4"],
+      "settings": {
+        "eyebrow": "The four pillars",
+        "heading": "How a Grace bat is made.",
+        "text": "Not all of it is data. It is process, performance and innovation, with data as the proof underneath."
+      }
+    },
+    "art": {
+      "type": "grace-feature-list",
+      "blocks": {
+        "a1": { "type": "feature", "settings": { "title": "The handle.", "text": "Pete's signature shape, perfected over hours with the top players. The \"gold\" that runs through every bat." } },
+        "a2": { "type": "feature", "settings": { "title": "Hand-selected willow.", "text": "No retail grades. Pete selects every cleft himself, and the price tells you where a bat sits." } },
+        "a3": { "type": "feature", "settings": { "title": "Plays lighter than it weighs.", "text": "More mass, perfectly balanced, so more energy goes into the ball." } },
+        "a4": { "type": "feature", "settings": { "title": "The 1%.", "text": "The DeChambeau logic: chase the fractional edge everyone else leaves on the table." } }
+      },
+      "block_order": ["a1", "a2", "a3", "a4"],
+      "settings": {
+        "eyebrow": "Art and science",
+        "heading": "Pete's hands. The data's proof.",
+        "lead": "Where the two meet",
+        "caption": "Grace / the profile",
+        "tile": "light",
+        "image_side": "right",
+        "background": "mist"
+      }
+    },
+    "proof": {
+      "type": "grace-proof",
+      "blocks": {
+        "p1": { "type": "player", "settings": { "caption": "International" } },
+        "p2": { "type": "player", "settings": { "caption": "Blackcap" } },
+        "p3": { "type": "player", "settings": { "caption": "First-class" } },
+        "p4": { "type": "player", "settings": { "caption": "International" } },
+        "p5": { "type": "player", "settings": { "caption": "Domestic" } },
+        "p6": { "type": "player", "settings": { "caption": "Blackcap" } },
+        "p7": { "type": "player", "settings": { "caption": "First-class" } },
+        "p8": { "type": "player", "settings": { "caption": "International" } }
+      },
+      "block_order": ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8"],
+      "settings": {
+        "eyebrow": "The proof",
+        "heading": "Chosen by more of the country's best than any other.",
+        "background": "paper",
+        "layout": "row",
+        "speed": 50
+      }
+    },
+    "close": {
+      "type": "grace-cta-band",
+      "settings": {
+        "eyebrow": "Win the next ball",
+        "heading": "The method is in every bat.",
+        "text": "Find the one that's yours, or see the range.",
+        "button_label": "Find your fit",
+        "button_link": "/pages/find-your-fit",
+        "button_2_label": "Shop the bats",
+        "button_2_link": "shopify://collections/all"
+      }
+    }
+  },
+  "order": ["hero", "engineer", "pillars", "art", "proof", "close"]
+}

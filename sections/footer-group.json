@@ -1,0 +1,32 @@
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "grace-footer": {
+      "type": "grace-footer",
+      "blocks": {
+        "shop": {
+          "type": "column",
+          "settings": { "heading": "Shop", "menu": "footer-shop" }
+        },
+        "brand": {
+          "type": "column",
+          "settings": { "heading": "Brand", "menu": "footer-brand" }
+        },
+        "account": {
+          "type": "column",
+          "settings": { "heading": "Account", "menu": "footer-account" }
+        }
+      },
+      "block_order": ["shop", "brand", "account"],
+      "settings": {
+        "wordmark": "GRACE",
+        "text": "Modern players' bats, built in New Zealand. Win the next ball.",
+        "base_menu": "footer"
+      }
+    }
+  },
+  "order": [
+    "grace-footer"
+  ]
+}

@@ -1,0 +1,70 @@
+{%- liquid
+  assign has_media = false
+  if section.settings.video != blank or section.settings.image != blank
+    assign has_media = true
+  endif
+-%}
+<div class="gr">
+  <section class="panel{% if section.settings.tone == 'deep' %} panel--deep{% endif %} panel--{{ section.settings.height }}{% if section.settings.align == 'centre' %} panel--centre{% endif %}">
+    {%- if has_media -%}
+      <div class="panel__media">
+        {%- if section.settings.video != blank -%}
+          {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '1920x' }}
+        {%- else -%}
+          {{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', alt: '' }}
+        {%- endif -%}
+      </div>
+      <div class="panel__scrim"></div>
+    {%- else -%}
+      <div class="panel__grid"></div>
+    {%- endif -%}
+    {%- if section.settings.caption != blank -%}<span class="panel__cap">{{ section.settings.caption | escape }}</span>{%- endif -%}
+    <div class="panel__in">
+      {%- if section.settings.badge != blank -%}<span class="panel__badge"><i></i> {{ section.settings.badge | escape }}</span>{%- endif -%}
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow | escape }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        {%- if section.settings.heading_level == 'h1' -%}
+          <h1>{{ section.settings.heading | escape }}</h1>
+        {%- else -%}
+          <h2>{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+      {%- if section.settings.button_label != blank or section.settings.button_2_label != blank -%}
+        <div class="panel__cta">
+          {%- if section.settings.button_label != blank -%}
+            <a class="btn btn--light" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a>
+          {%- endif -%}
+          {%- if section.settings.button_2_label != blank -%}
+            <a class="btn btn--outline" href="{{ section.settings.button_2_link }}">{{ section.settings.button_2_label | escape }}</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Grace dark panel",
+  "settings": [
+    { "type": "text", "id": "badge", "label": "Badge (optional)", "info": "A small pill above the heading, for example Access required." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The engineer" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "One engineer. Every car." },
+    { "type": "select", "id": "heading_level", "label": "Heading size", "options": [{ "value": "h2", "label": "Section heading" }, { "value": "h1", "label": "Page heading (larger)" }], "default": "h2" },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "text", "id": "caption", "label": "Corner caption (optional)" },
+    { "type": "select", "id": "align", "label": "Alignment", "options": [{ "value": "left", "label": "Left" }, { "value": "centre", "label": "Centre" }], "default": "left" },
+    { "type": "select", "id": "tone", "label": "Tone", "options": [{ "value": "blue", "label": "Blue" }, { "value": "deep", "label": "Deep navy" }], "default": "blue" },
+    { "type": "select", "id": "height", "label": "Height", "options": [{ "value": "short", "label": "Short" }, { "value": "medium", "label": "Medium" }, { "value": "tall", "label": "Tall" }], "default": "medium" },
+    { "type": "text", "id": "button_label", "label": "Button label (optional)" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "text", "id": "button_2_label", "label": "Second button label (optional)" },
+    { "type": "url", "id": "button_2_link", "label": "Second button link" },
+    { "type": "header", "content": "Background (optional)" },
+    { "type": "video", "id": "video", "label": "Looping film" },
+    { "type": "image_picker", "id": "image", "label": "Image" }
+  ],
+  "presets": [{ "name": "Grace dark panel" }]
+}
+{% endschema %}

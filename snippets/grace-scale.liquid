@@ -1,0 +1,17 @@
+{%- comment -%}
+  Three-step scale used by the comparison tool.
+  Accepts: key (pickup | sweet), labels (comma separated), on (lowercased values that are lit).
+{%- endcomment -%}
+{%- assign scale_labels = labels | split: ',' -%}
+<div class="scale" data-k="{{ key }}">
+  {%- for label in scale_labels -%}
+    {%- assign label_key = label | downcase -%}
+    <span class="scale__seg{% if on contains label_key %} scale__seg--on{% endif %}"></span>
+  {%- endfor -%}
+</div>
+<div class="scale__labels">
+  {%- for label in scale_labels -%}
+    {%- assign label_key = label | downcase -%}
+    <span data-v="{{ label_key }}"{% if on contains label_key %} class="on"{% endif %}>{{ label }}</span>
+  {%- endfor -%}
+</div>

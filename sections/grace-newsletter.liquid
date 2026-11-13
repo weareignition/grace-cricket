@@ -1,0 +1,46 @@
+<div class="gr">
+  <section class="news">
+    <div class="wrap">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow | escape }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading | escape }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+      {%- form 'customer' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <div class="news__form">
+          <input
+            type="email"
+            name="contact[email]"
+            id="NewsletterEmail-{{ section.id }}"
+            autocomplete="email"
+            autocapitalize="off"
+            required
+            placeholder="{{ section.settings.placeholder | escape }}"
+            aria-label="{{ section.settings.placeholder | escape }}"
+            value="{{ form.email }}"
+          >
+          <button type="submit" class="btn btn--solid">{{ section.settings.button_label | escape }}</button>
+        </div>
+        {%- if form.posted_successfully? -%}
+          <p class="news__msg" role="status">{{ section.settings.success_text | escape }}</p>
+        {%- elsif form.errors -%}
+          <p class="news__msg news__msg--err" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Grace newsletter",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Stay close" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "First access to drops and player stories." },
+    { "type": "text", "id": "text", "label": "Text", "default": "No noise. Just the next ball." },
+    { "type": "text", "id": "placeholder", "label": "Email placeholder", "default": "Email address" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Join" },
+    { "type": "text", "id": "success_text", "label": "Success message", "default": "You're in. We'll be in touch." }
+  ],
+  "presets": [{ "name": "Grace newsletter" }]
+}
+{% endschema %}

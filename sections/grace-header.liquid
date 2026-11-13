@@ -1,0 +1,65 @@
+{%- liquid
+  assign menu = section.settings.menu
+  if customer
+    assign account_url = routes.account_url
+  else
+    assign account_url = routes.account_login_url
+  endif
+-%}
+<div class="gr">
+  <header class="nav">
+    <div class="nav__in">
+      <a class="brand" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 400 | image_tag: loading: 'eager', alt: shop.name }}
+        {%- else -%}
+          {{ section.settings.wordmark | escape }}
+        {%- endif -%}
+      </a>
+
+      <nav class="nav__links" aria-label="Main">
+        {%- for link in menu.links -%}
+          <a href="{{ link.url }}"{% if link.active or link.child_active %} class="on" aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+        {%- endfor -%}
+      </nav>
+
+      <div class="nav__ic">
+        <a class="nav__m-hide" href="{{ routes.search_url }}">{{ section.settings.search_label | escape }}</a>
+        {%- if shop.customer_accounts_enabled -%}
+          <a class="nav__m-hide" href="{{ account_url }}">{{ section.settings.account_label | escape }}</a>
+        {%- endif -%}
+        <a href="{{ routes.cart_url }}">{{ section.settings.bag_label | escape }} ({{ cart.item_count }})</a>
+      </div>
+
+      <details class="nav__mob">
+        <summary aria-label="Menu">{{ section.settings.menu_label | escape }}</summary>
+        <div class="nav__panel">
+          {%- for link in menu.links -%}
+            <a href="{{ link.url }}">{{ link.title | escape }}</a>
+          {%- endfor -%}
+          <a href="{{ routes.search_url }}">{{ section.settings.search_label | escape }}</a>
+          {%- if shop.customer_accounts_enabled -%}
+            <a href="{{ account_url }}">{{ section.settings.account_label | escape }}</a>
+          {%- endif -%}
+        </div>
+      </details>
+    </div>
+  </header>
+</div>
+
+{% schema %}
+{
+  "name": "Grace header",
+  "class": "gr-header-section",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo image", "info": "Optional. The text wordmark below is used when no image is set." },
+    { "type": "text", "id": "wordmark", "label": "Wordmark", "default": "GRACE" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "header", "content": "Labels" },
+    { "type": "text", "id": "search_label", "label": "Search", "default": "Search" },
+    { "type": "text", "id": "account_label", "label": "Account", "default": "Account" },
+    { "type": "text", "id": "bag_label", "label": "Bag", "default": "Bag" },
+    { "type": "text", "id": "menu_label", "label": "Mobile menu", "default": "Menu" }
+  ]
+}
+{% endschema %}

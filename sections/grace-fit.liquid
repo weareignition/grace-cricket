@@ -1,0 +1,395 @@
+{%- liquid
+  assign items = section.settings.products
+  if items == blank and section.settings.collection != blank
+    assign items = section.settings.collection.products
+  endif
+  if items == blank
+    assign items = collections.all.products
+  endif
+  assign keys = 'level,pickup,middle,priority' | split: ','
+  assign value_sets = 'club,masters,firstclass,new|light,balanced,heavy|low,mid,high|power,control,allround' | split: '|'
+-%}
+<div class="gr">
+  <section class="fit" data-grace-fit>
+    {%- comment -%} Product data for the quiz, read by assets/grace.js. {%- endcomment -%}
+    <script type="application/json" data-fit-data>
+      [
+        {%- for item in items limit: 12 -%}
+          {%- liquid
+            assign variant = item.selected_or_first_available_variant
+            assign pickup = item.metafields.custom.pickup_scale.value | join: '|' | downcase
+            assign sweet = item.metafields.custom.sweet_spot_scale.value | join: '|' | downcase
+            assign pickup_text = item.metafields.custom.pickup_scale.value | join: ' to '
+            assign why = item.metafields.custom.fit_summary.value | default: item.metafields.custom.benefit_headline.value | default: ''
+          -%}
+          {
+            "title": {{ item.title | json }},
+            "url": {{ item.url | json }},
+            "image": {% if item.featured_image %}{{ item.featured_image | image_url: width: 900 | json }}{% else %}null{% endif %},
+            "price": {{ variant.price | money | strip_html | json }},
+            "variant": {{ variant.id | json }},
+            "available": {{ variant.available | json }},
+            "why": {{ why | json }},
+            "weight": {{ item.metafields.custom.weight.value | default: '' | json }},
+            "pickup": {{ pickup | json }},
+            "pickup_text": {{ pickup_text | json }},
+            "sweet": {{ sweet | json }},
+            "sweet_text": {{ item.metafields.custom.sweet_spot.value | default: '' | json }},
+            "willow": {{ item.metafields.custom.willow.value | default: '' | json }}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    </script>
+
+    <div class="fit__wrap">
+      <div class="fit__progress"><div class="fit__bar" data-fit-bar></div></div>
+
+      <div class="fstep" data-fit-step="intro">
+        {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow | escape }}</span>{%- endif -%}
+        <h1>{{ section.settings.heading | escape }}</h1>
+        {%- if section.settings.text != blank -%}<p class="fstep__lead">{{ section.settings.text | escape }}</p>{%- endif -%}
+        <div class="fstep__start"><button type="button" class="btn btn--solid" data-fit-start>{{ section.settings.start_label | escape }}</button></div>
+      </div>
+
+      {%- for key in keys -%}
+        {%- liquid
+          assign values = value_sets[forloop.index0] | split: ','
+          assign title_id = 'q_' | append: key | append: '_title'
+          assign step_number = forloop.index
+          assign is_first = forloop.first
+        -%}
+        <div class="fstep" data-fit-step="question" data-key="{{ key }}" hidden>
+          <div class="fstep__num">{{ section.settings.question_label | escape }} {{ step_number }} / {{ keys.size }}</div>
+          <h2>{{ section.settings[title_id] | escape }}</h2>
+          <div class="fopts">
+            {%- for value in values -%}
+              {%- liquid
+                assign label_id = 'q_' | append: key | append: '_' | append: value | append: '_label'
+                assign sub_id = 'q_' | append: key | append: '_' | append: value | append: '_sub'
+              -%}
+              {%- if section.settings[label_id] != blank -%}
+                <button type="button" class="fopt" data-value="{{ value }}">
+                  <b>{{ section.settings[label_id] | escape }}</b>
+                  {%- if section.settings[sub_id] != blank -%}<span>{{ section.settings[sub_id] | escape }}</span>{%- endif -%}
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <div class="fnav">
+            {%- unless is_first -%}<button type="button" class="fback" data-fit-back>← Back</button>{%- endunless -%}
+          </div>
+        </div>
+      {%- endfor -%}
+
+      <div class="fstep" data-fit-step="result" hidden>
+        {%- if section.settings.result_eyebrow != blank -%}<span class="eyebrow">{{ section.settings.result_eyebrow | escape }}</span>{%- endif -%}
+        <h2 data-fit-name></h2>
+        <div class="fresult">
+          <div class="fresult__img">
+            <img data-fit-img hidden alt="" loading="lazy" width="900" height="1125">
+            {%- render 'grace-bat', fill: '#0B54CE', attrs: 'data-fit-ph' -%}
+          </div>
+          <div>
+            <p class="fresult__why" data-fit-why></p>
+            <div class="fresult__spec">
+              <div><span class="k">Weight</span><span class="v" data-fit-k="weight"></span></div>
+              <div><span class="k">Sweet spot</span><span class="v" data-fit-k="sweet_text"></span></div>
+              <div><span class="k">Pick-up</span><span class="v" data-fit-k="pickup_text"></span></div>
+              <div><span class="k">Willow</span><span class="v" data-fit-k="willow"></span></div>
+            </div>
+            <div class="fresult__price" data-fit-price></div>
+            <div class="fresult__cta">
+              <form method="post" action="{{ routes.cart_add_url }}" data-fit-form>
+                <input type="hidden" name="id" value="" data-fit-variant>
+                <button type="submit" class="btn btn--solid">{{ section.settings.add_label | escape }}</button>
+              </form>
+              <a class="btn btn--ghost" href="{{ routes.all_products_collection_url }}" data-fit-link>{{ section.settings.view_label | escape }}</a>
+            </div>
+            <button type="button" class="frestart" data-fit-restart>↺ Start over</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Grace fit quiz",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The match is scored from product metafields. Pick-up and middle answers are matched against custom.pickup_scale and custom.sweet_spot_scale; the priority answer adds weight (power favours Heavy and High, control favours Light and Low, all-round favours Balanced and Mid). The first question does not affect the match."
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Bats to match against",
+      "limit": 12,
+      "info": "Leave empty to use the collection below, or all products if no collection is chosen."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Intro"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Find your fit"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Let's find your bat."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Four quick questions, the way the country's best get fitted. About a minute, and you'll know exactly which Grace is yours."
+    },
+    {
+      "type": "text",
+      "id": "start_label",
+      "label": "Start button",
+      "default": "Start"
+    },
+    {
+      "type": "text",
+      "id": "question_label",
+      "label": "Question counter word",
+      "default": "Question"
+    },
+    {
+      "type": "header",
+      "content": "Question 1"
+    },
+    {
+      "type": "text",
+      "id": "q_level_title",
+      "label": "Question",
+      "default": "What's your game?"
+    },
+    {
+      "type": "text",
+      "id": "q_level_club_label",
+      "label": "Option: Club",
+      "default": "Club"
+    },
+    {
+      "type": "text",
+      "id": "q_level_club_sub",
+      "label": "Option detail: Club",
+      "default": "Weekend and league cricket"
+    },
+    {
+      "type": "text",
+      "id": "q_level_masters_label",
+      "label": "Option: Masters",
+      "default": "Masters"
+    },
+    {
+      "type": "text",
+      "id": "q_level_masters_sub",
+      "label": "Option detail: Masters",
+      "default": "Still got it, 40+"
+    },
+    {
+      "type": "text",
+      "id": "q_level_firstclass_label",
+      "label": "Option: First-class",
+      "default": "First-class"
+    },
+    {
+      "type": "text",
+      "id": "q_level_firstclass_sub",
+      "label": "Option detail: First-class",
+      "default": "Rep and pro level"
+    },
+    {
+      "type": "text",
+      "id": "q_level_new_label",
+      "label": "Option: New to it",
+      "default": "New to it"
+    },
+    {
+      "type": "text",
+      "id": "q_level_new_sub",
+      "label": "Option detail: New to it",
+      "default": "Getting serious"
+    },
+    {
+      "type": "header",
+      "content": "Question 2"
+    },
+    {
+      "type": "text",
+      "id": "q_pickup_title",
+      "label": "Question",
+      "default": "How do you like the pick-up?"
+    },
+    {
+      "type": "text",
+      "id": "q_pickup_light_label",
+      "label": "Option: Light",
+      "default": "Light"
+    },
+    {
+      "type": "text",
+      "id": "q_pickup_light_sub",
+      "label": "Option detail: Light",
+      "default": "Fast hands, quick through the line"
+    },
+    {
+      "type": "text",
+      "id": "q_pickup_balanced_label",
+      "label": "Option: Balanced",
+      "default": "Balanced"
+    },
+    {
+      "type": "text",
+      "id": "q_pickup_balanced_sub",
+      "label": "Option detail: Balanced",
+      "default": "The all-round feel"
+    },
+    {
+      "type": "text",
+      "id": "q_pickup_heavy_label",
+      "label": "Option: A bit of weight",
+      "default": "A bit of weight"
+    },
+    {
+      "type": "text",
+      "id": "q_pickup_heavy_sub",
+      "label": "Option detail: A bit of weight",
+      "default": "You like to feel the bat"
+    },
+    {
+      "type": "header",
+      "content": "Question 3"
+    },
+    {
+      "type": "text",
+      "id": "q_middle_title",
+      "label": "Question",
+      "default": "Where do you want the middle?"
+    },
+    {
+      "type": "text",
+      "id": "q_middle_low_label",
+      "label": "Option: Low",
+      "default": "Low"
+    },
+    {
+      "type": "text",
+      "id": "q_middle_low_sub",
+      "label": "Option detail: Low",
+      "default": "Front foot, timing and control"
+    },
+    {
+      "type": "text",
+      "id": "q_middle_mid_label",
+      "label": "Option: Mid",
+      "default": "Mid"
+    },
+    {
+      "type": "text",
+      "id": "q_middle_mid_sub",
+      "label": "Option detail: Mid",
+      "default": "Works everywhere"
+    },
+    {
+      "type": "text",
+      "id": "q_middle_high_label",
+      "label": "Option: High",
+      "default": "High"
+    },
+    {
+      "type": "text",
+      "id": "q_middle_high_sub",
+      "label": "Option detail: High",
+      "default": "Back foot, pace and bounce"
+    },
+    {
+      "type": "header",
+      "content": "Question 4"
+    },
+    {
+      "type": "text",
+      "id": "q_priority_title",
+      "label": "Question",
+      "default": "What matters most?"
+    },
+    {
+      "type": "text",
+      "id": "q_priority_power_label",
+      "label": "Option: Power",
+      "default": "Power"
+    },
+    {
+      "type": "text",
+      "id": "q_priority_power_sub",
+      "label": "Option detail: Power",
+      "default": "Get more into every shot"
+    },
+    {
+      "type": "text",
+      "id": "q_priority_control_label",
+      "label": "Option: Control",
+      "default": "Control"
+    },
+    {
+      "type": "text",
+      "id": "q_priority_control_sub",
+      "label": "Option detail: Control",
+      "default": "Find the middle, every time"
+    },
+    {
+      "type": "text",
+      "id": "q_priority_allround_label",
+      "label": "Option: All-round",
+      "default": "All-round"
+    },
+    {
+      "type": "text",
+      "id": "q_priority_allround_sub",
+      "label": "Option detail: All-round",
+      "default": "A bit of both"
+    },
+    {
+      "type": "header",
+      "content": "Result"
+    },
+    {
+      "type": "text",
+      "id": "result_eyebrow",
+      "label": "Eyebrow",
+      "default": "Your match"
+    },
+    {
+      "type": "text",
+      "id": "add_label",
+      "label": "Add to bag button",
+      "default": "Add to bag"
+    },
+    {
+      "type": "text",
+      "id": "view_label",
+      "label": "View button",
+      "default": "See the bat"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grace fit quiz"
+    }
+  ]
+}
+{% endschema %}

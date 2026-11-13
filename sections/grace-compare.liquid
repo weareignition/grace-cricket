@@ -1,0 +1,82 @@
+{%- liquid
+  assign items = section.settings.products
+  if items == blank and section.settings.collection != blank
+    assign items = section.settings.collection.products
+  endif
+  if items == blank
+    assign items = collections.all.products
+  endif
+-%}
+<div class="gr">
+  <section class="compare" data-grace-compare>
+    <div class="wrap">
+      <div class="compare__head">
+        {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow | escape }}</span>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading | escape }}</h2>{%- endif -%}
+      </div>
+
+      {%- comment -%} Product data for the comparison, read by assets/grace.js. Specs come from product metafields. {%- endcomment -%}
+      <script type="application/json" data-cmp-data>
+        [
+          {%- for item in items limit: 12 -%}
+            {%- liquid
+              assign pickup = item.metafields.custom.pickup_scale.value | join: '|' | downcase
+              assign sweet = item.metafields.custom.sweet_spot_scale.value | join: '|' | downcase
+            -%}
+            {
+              "title": {{ item.title | json }},
+              "url": {{ item.url | json }},
+              "image": {% if item.featured_image %}{{ item.featured_image | image_url: width: 900 | json }}{% else %}null{% endif %},
+              "weight": {{ item.metafields.custom.weight.value | default: '' | json }},
+              "pickup": {{ pickup | json }},
+              "sweet": {{ sweet | json }},
+              "willow": {{ item.metafields.custom.willow.value | default: '' | json }},
+              "handle": {{ item.metafields.custom.handle.value | default: '' | json }}
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      </script>
+
+      <div class="compare__grid">
+        {%- for side in (1..2) -%}
+          <div class="compare__col" data-cmp-col>
+            <div class="compare__img">
+              <img data-cmp-img hidden alt="" loading="lazy" width="900" height="675">
+              {%- render 'grace-bat', fill: '#0B54CE', attrs: 'data-cmp-ph' -%}
+            </div>
+            <select class="compare__sel" data-cmp-sel aria-label="{{ section.settings.select_label | escape }}"></select>
+            <div class="attr"><div class="attr__k">{{ section.settings.label_weight | escape }}</div><div class="attr__v" data-k="weight"></div></div>
+            <div class="attr"><div class="attr__k">{{ section.settings.label_pickup | escape }}</div>{%- render 'grace-scale', key: 'pickup', labels: 'Light,Balanced,Heavy' -%}</div>
+            <div class="attr"><div class="attr__k">{{ section.settings.label_sweet | escape }}</div>{%- render 'grace-scale', key: 'sweet', labels: 'Low,Mid,High' -%}</div>
+            <div class="attr"><div class="attr__k">{{ section.settings.label_willow | escape }}</div><div class="attr__v" data-k="willow"></div></div>
+            <div class="attr"><div class="attr__k">{{ section.settings.label_handle | escape }}</div><div class="attr__v" data-k="handle"></div></div>
+            <a class="compare__link" data-cmp-link hidden href="{{ routes.all_products_collection_url }}">{{ section.settings.view_label | escape }} →</a>
+          </div>
+          {%- if side == 1 -%}<div class="compare__div"></div>{%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Grace bat comparison",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Compare" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find your bat." },
+    { "type": "product_list", "id": "products", "label": "Bats to compare", "limit": 12, "info": "Leave empty to use the collection below, or all products if no collection is chosen." },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "paragraph", "content": "Values come from product metafields: custom.weight, custom.pickup_scale, custom.sweet_spot_scale, custom.willow, custom.handle." },
+    { "type": "header", "content": "Labels" },
+    { "type": "text", "id": "select_label", "label": "Dropdown label", "default": "Choose a bat" },
+    { "type": "text", "id": "label_weight", "label": "Weight", "default": "Weight" },
+    { "type": "text", "id": "label_pickup", "label": "Pick-up", "default": "Pick-up" },
+    { "type": "text", "id": "label_sweet", "label": "Sweet spot", "default": "Sweet spot" },
+    { "type": "text", "id": "label_willow", "label": "Willow", "default": "Willow" },
+    { "type": "text", "id": "label_handle", "label": "Handle", "default": "Handle" },
+    { "type": "text", "id": "view_label", "label": "Link label", "default": "View bat" }
+  ],
+  "presets": [{ "name": "Grace bat comparison" }]
+}
+{% endschema %}

@@ -1,0 +1,23 @@
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "grace-announcement": {
+      "type": "grace-announcement",
+      "settings": {
+        "text": "Direct from the maker · Built for the next ball"
+      }
+    },
+    "grace-header": {
+      "type": "grace-header",
+      "settings": {
+        "wordmark": "GRACE",
+        "menu": "main-menu"
+      }
+    }
+  },
+  "order": [
+    "grace-announcement",
+    "grace-header"
+  ]
+}

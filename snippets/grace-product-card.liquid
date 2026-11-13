@@ -1,0 +1,28 @@
+{%- comment -%}
+  Bat card. Accepts: card_product (product), index (0-based, for placeholder colour), view_label.
+{%- endcomment -%}
+{%- liquid
+  assign fills = '#0B54CE,#0B0F2B,#B7BFD2' | split: ','
+  assign fill_index = index | modulo: 3
+  assign weight = card_product.metafields.custom.weight.value
+  assign sweet = card_product.metafields.custom.sweet_spot_scale.value | join: ' / ' | downcase
+-%}
+<a class="bat" href="{{ card_product.url }}">
+  <div class="bat__img">
+    <span class="bat__tag">{{ card_product.title | escape }}</span>
+    {%- if card_product.featured_image -%}
+      {{ card_product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', sizes: '(min-width: 900px) 30vw, 100vw', alt: card_product.title }}
+    {%- else -%}
+      {%- render 'grace-bat', fill: fills[fill_index] -%}
+    {%- endif -%}
+  </div>
+  <div class="bat__b">
+    <div class="bat__nm">{{ card_product.title | escape }}</div>
+    <div class="bat__meta">
+      {{- card_product.type | escape -}}
+      {%- if weight != blank %} · {{ weight | escape }}{% endif -%}
+      {%- if sweet != blank %} · {{ sweet | escape }}{% endif -%}
+    </div>
+    <div class="bat__row"><span class="bat__price">{{ card_product.price | money }}</span><span class="bat__link">{{ view_label }} →</span></div>
+  </div>
+</a>

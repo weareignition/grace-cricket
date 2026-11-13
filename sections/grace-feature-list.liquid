@@ -1,0 +1,83 @@
+{%- liquid
+  assign image = section.settings.image
+  assign image_class = 'feat__img'
+  assign bat_fill = '#0B54CE'
+  if section.settings.tile == 'dark'
+    assign image_class = 'feat__img feat__img--dark'
+    assign bat_fill = '#ffffff'
+  endif
+  if image == blank and product != blank
+    assign image = product.featured_image
+    assign image_class = image_class | append: ' feat__img--contain'
+  endif
+-%}
+<div class="gr">
+  <section class="feat{% if section.settings.background == 'mist' %} feat--mist{% endif %}{% if section.settings.image_side == 'left' %} feat--flip{% endif %}">
+    <div class="wrap">
+      <div class="feat__grid">
+        <div class="feat__txt">
+          {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow | escape }}</span>{%- endif -%}
+          {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading | escape }}</h2>{%- endif -%}
+          <div class="feat__rule"></div>
+          {%- if section.settings.lead != blank -%}<div class="feat__lead">{{ section.settings.lead | escape }}</div>{%- endif -%}
+          {%- if section.blocks.size > 0 -%}
+            <ul class="featlist">
+              {%- for block in section.blocks -%}
+                <li {{ block.shopify_attributes }}>
+                  {%- if block.settings.title != blank -%}<b>{{ block.settings.title | escape }}</b> {% endif -%}
+                  {{- block.settings.text | escape -}}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if section.settings.button_label != blank -%}
+            <a class="btn btn--ghost feat__cta" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a>
+          {%- endif -%}
+        </div>
+        <div class="{{ image_class }}">
+          {%- if image != blank -%}
+            {{ image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '480, 720, 1000, 1400', sizes: '(min-width: 900px) 45vw, 100vw', alt: image.alt }}
+          {%- else -%}
+            {%- render 'grace-bat', fill: bat_fill -%}
+          {%- endif -%}
+          {%- if section.settings.caption != blank -%}<span class="cap">{{ section.settings.caption | escape }}</span>{%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Grace feature list",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why a Grace bat" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A pro's bat makes you better, not worse." },
+    { "type": "text", "id": "lead", "label": "List heading", "default": "Where the difference is made" },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "On a product page, the product's main image is used when this is empty." },
+    { "type": "text", "id": "caption", "label": "Image caption" },
+    { "type": "select", "id": "tile", "label": "Image tile", "options": [{ "value": "light", "label": "Light" }, { "value": "dark", "label": "Dark" }], "default": "light" },
+    { "type": "select", "id": "image_side", "label": "Image side", "options": [{ "value": "right", "label": "Right" }, { "value": "left", "label": "Left" }], "default": "right" },
+    { "type": "select", "id": "background", "label": "Background", "options": [{ "value": "paper", "label": "White" }, { "value": "mist", "label": "Mist" }], "default": "paper" },
+    { "type": "text", "id": "button_label", "label": "Button label (optional)" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Bold lead-in", "default": "A bigger middle." },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "More timber where it counts, so more of your shots find the sweet spot." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grace feature list",
+      "blocks": [{ "type": "feature" }, { "type": "feature" }, { "type": "feature" }]
+    }
+  ]
+}
+{% endschema %}

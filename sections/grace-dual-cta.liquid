@@ -1,0 +1,54 @@
+{%- if section.blocks.size > 0 -%}
+  <div class="gr">
+    <section class="fitsel">
+      {%- for block in section.blocks -%}
+        <div class="fitcta{% if block.settings.tone == 'dark' %} fitcta--b{% endif %}" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <div class="fitcta__bg">
+              {{ block.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(min-width: 900px) 50vw, 100vw', alt: '' }}
+            </div>
+          {%- endif -%}
+          <div class="fitcta__in">
+            {%- if block.settings.eyebrow != blank -%}<span class="eyebrow">{{ block.settings.eyebrow | escape }}</span>{%- endif -%}
+            {%- if block.settings.heading != blank -%}<h3>{{ block.settings.heading | escape }}</h3>{%- endif -%}
+            {%- if block.settings.text != blank -%}<p>{{ block.settings.text | escape }}</p>{%- endif -%}
+            {%- if block.settings.button_label != blank -%}
+              <a class="btn {% if block.settings.tone == 'dark' %}btn--outline{% else %}btn--light{% endif %}" href="{{ block.settings.button_link }}">{{ block.settings.button_label | escape }}</a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </section>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Grace dual panels",
+  "max_blocks": 2,
+  "blocks": [
+    {
+      "type": "panel",
+      "name": "Panel",
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Fitting" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Find your fit." },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Answer a few questions and we'll match you to the right bat, the way the best get fitted." },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Start" },
+        { "type": "url", "id": "button_link", "label": "Button link" },
+        { "type": "select", "id": "tone", "label": "Tone", "options": [{ "value": "blue", "label": "Blue" }, { "value": "dark", "label": "Dark" }], "default": "blue" },
+        { "type": "image_picker", "id": "image", "label": "Background image (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grace dual panels",
+      "blocks": [
+        { "type": "panel" },
+        { "type": "panel", "settings": { "eyebrow": "Pro Corner", "heading": "Book a repair with Pete.", "text": "Access for selected Blackcaps and contracted pros. Something no other site offers.", "button_label": "Request access", "tone": "dark" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

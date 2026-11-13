@@ -1,0 +1,61 @@
+<div class="gr">
+  <section class="community">
+    <div class="community__media">
+      {%- if section.settings.video != blank -%}
+        {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '1920x' }}
+      {%- elsif section.settings.poster != blank -%}
+        {{ section.settings.poster | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', alt: '' }}
+      {%- endif -%}
+    </div>
+    {%- if section.settings.video == blank and section.settings.poster == blank -%}<div class="community__gridlines"></div>{%- endif -%}
+    <div class="community__scrim"></div>
+    <div class="community__in">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow | escape }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading | escape }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        <div class="community__list">
+          {%- for block in section.blocks -%}
+            <div {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="btn btn--light community__cta" href="{{ section.settings.button_link | default: routes.account_register_url }}">{{ section.settings.button_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Grace community film",
+  "max_blocks": 5,
+  "settings": [
+    { "type": "video", "id": "video", "label": "Looping film", "info": "Muted, autoplaying and looping. Keep it dark and calm so the white text stays legible." },
+    { "type": "image_picker", "id": "poster", "label": "Image", "info": "Shown when no film is set." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The community" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Share the wins with your players." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Track your bat, learn from the best, and get closer to your game." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Create your account" },
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "Leave empty to link to account sign-up." }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "List item",
+      "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "Bat journal" }]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grace community film",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Bat journal" } },
+        { "type": "item", "settings": { "text": "Training & how-to videos" } },
+        { "type": "item", "settings": { "text": "Coaching & mentoring" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

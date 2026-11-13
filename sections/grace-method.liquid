@@ -1,0 +1,58 @@
+<div class="gr">
+  <section class="sec method">
+    <div class="wrap">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow | escape }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading | escape }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p class="method__lead">{{ section.settings.text | escape }}</p>{%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        <div class="pillars">
+          {%- for block in section.blocks -%}
+            <div class="pillar" {{ block.shopify_attributes }}>
+              <div class="n">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</div>
+              <h3>{{ block.settings.title | escape }}</h3>
+              <p>{{ block.settings.text | escape }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="btn btn--outline method__cta" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Grace method",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The method" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The simplicity of something complex." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Grace is chief engineer to the country's best. Every bat is the sum of a method Pete has spent a lifetime refining, chasing the 1% that turns an out into a six." },
+    { "type": "text", "id": "button_label", "label": "Button label (optional)" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Pillar",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Process" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Organised steps, led by research into what the best players actually need." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grace method",
+      "blocks": [
+        { "type": "pillar", "settings": { "title": "Process", "text": "Organised steps, led by research into what the best players actually need." } },
+        { "type": "pillar", "settings": { "title": "Performance", "text": "A better bat through confidence and evidence. The relentless 1%." } },
+        { "type": "pillar", "settings": { "title": "Innovation", "text": "Constant evolution. Always adjusting the bat for improvement." } },
+        { "type": "pillar", "settings": { "title": "Data", "text": "Figures up front, chosen by more of the best than any other." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,142 @@
+{%- liquid
+  assign is_pro = false
+  if customer and customer.tags contains section.settings.tag
+    assign is_pro = true
+  endif
+-%}
+<div class="gr">
+  <section class="access" id="pro-access">
+    <div class="wrap">
+      {%- if is_pro -%}
+        <div class="access__head">
+          {%- if section.settings.member_eyebrow != blank -%}<span class="eyebrow">{{ section.settings.member_eyebrow | escape }}</span>{%- endif -%}
+          <h2>{{ section.settings.member_heading | escape }}</h2>
+          {%- if section.settings.member_text != blank -%}<p>{{ section.settings.member_text | escape }}</p>{%- endif -%}
+        </div>
+        <div class="access__grid access__grid--single">
+          <div class="apanel apanel--main">
+            {%- form 'contact', id: 'GraceProBooking' -%}
+              {%- if form.posted_successfully? -%}
+                <p class="apanel__msg" role="status">{{ section.settings.booking_success | escape }}</p>
+              {%- elsif form.errors -%}
+                <div class="apanel__msg apanel__msg--err" role="alert">{{ form.errors | default_errors }}</div>
+              {%- endif -%}
+              <input type="hidden" name="contact[Request]" value="Pro Corner repair booking">
+              <input type="hidden" name="contact[name]" value="{{ customer.name | escape }}">
+              <input type="hidden" name="contact[email]" value="{{ customer.email | escape }}">
+              <div class="afield">
+                <label for="ProBat-{{ section.id }}">Bat</label>
+                <input type="text" id="ProBat-{{ section.id }}" name="contact[Bat]" placeholder="Which bat, and roughly how old">
+              </div>
+              <div class="afield--row">
+                <div class="afield">
+                  <label for="ProWork-{{ section.id }}">What it needs</label>
+                  <select id="ProWork-{{ section.id }}" name="contact[Work]">
+                    <option>Repair</option>
+                    <option>Re-shape</option>
+                    <option>Service</option>
+                    <option>Not sure</option>
+                  </select>
+                </div>
+                <div class="afield">
+                  <label for="ProWhen-{{ section.id }}">Needed by</label>
+                  <input type="text" id="ProWhen-{{ section.id }}" name="contact[Needed by]" placeholder="Date or next fixture">
+                </div>
+              </div>
+              <div class="afield">
+                <label for="ProBody-{{ section.id }}">Details</label>
+                <textarea id="ProBody-{{ section.id }}" name="contact[body]" placeholder="What's happened, and anything Pete should know"></textarea>
+              </div>
+              <button type="submit" class="btn btn--solid btn--block">{{ section.settings.booking_button | escape }}</button>
+            {%- endform -%}
+            {%- if section.settings.note != blank -%}<p class="apanel__note">◍ {{ section.settings.note | escape }}</p>{%- endif -%}
+          </div>
+        </div>
+      {%- else -%}
+        <div class="access__head">
+          {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow | escape }}</span>{%- endif -%}
+          <h2>{{ section.settings.heading | escape }}</h2>
+        </div>
+        <div class="access__grid">
+          <div class="apanel apanel--main">
+            <h3>{{ section.settings.request_heading | escape }}</h3>
+            {%- if section.settings.request_text != blank -%}<p class="apanel__sub">{{ section.settings.request_text | escape }}</p>{%- endif -%}
+            {%- form 'contact', id: 'GraceProRequest' -%}
+              {%- if form.posted_successfully? -%}
+                <p class="apanel__msg" role="status">{{ section.settings.request_success | escape }}</p>
+              {%- elsif form.errors -%}
+                <div class="apanel__msg apanel__msg--err" role="alert">{{ form.errors | default_errors }}</div>
+              {%- endif -%}
+              <input type="hidden" name="contact[Request]" value="Pro Corner access request">
+              <div class="afield--row">
+                <div class="afield">
+                  <label for="ProName-{{ section.id }}">Name</label>
+                  <input type="text" id="ProName-{{ section.id }}" name="contact[name]" autocomplete="name" required value="{% if customer %}{{ customer.name | escape }}{% endif %}">
+                </div>
+                <div class="afield">
+                  <label for="ProEmail-{{ section.id }}">Email</label>
+                  <input type="email" id="ProEmail-{{ section.id }}" name="contact[email]" autocomplete="email" autocapitalize="off" required value="{% if customer %}{{ customer.email | escape }}{% endif %}">
+                </div>
+              </div>
+              <div class="afield">
+                <label for="ProLevel-{{ section.id }}">Team / level</label>
+                <select id="ProLevel-{{ section.id }}" name="contact[Level]">
+                  <option>International</option>
+                  <option>First-class</option>
+                  <option>Domestic</option>
+                </select>
+              </div>
+              <div class="afield">
+                <label for="ProNote-{{ section.id }}">Anything we should know</label>
+                <textarea id="ProNote-{{ section.id }}" name="contact[body]" placeholder="Team, current kit, what you need"></textarea>
+              </div>
+              <button type="submit" class="btn btn--solid btn--block">{{ section.settings.request_button | escape }}</button>
+            {%- endform -%}
+          </div>
+          <div class="apanel apanel--side">
+            {%- if customer -%}
+              <h3>{{ section.settings.pending_heading | escape }}</h3>
+              <p class="apanel__sub">{{ section.settings.pending_text | escape }}</p>
+            {%- else -%}
+              <h3>{{ section.settings.signin_heading | escape }}</h3>
+              <p class="apanel__sub">{{ section.settings.signin_text | escape }}</p>
+              <a class="btn btn--ghost btn--block" href="{{ routes.account_login_url }}">{{ section.settings.signin_button | escape }}</a>
+            {%- endif -%}
+            {%- if section.settings.note != blank -%}<p class="apanel__note">◍ {{ section.settings.note | escape }}</p>{%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Grace Pro Corner access",
+  "settings": [
+    { "type": "paragraph", "content": "Customers with the tag below see the repair booking form. Everyone else sees the access request form. Both forms are sent to the store's contact email. To approve a pro, add the tag to their customer record in Shopify." },
+    { "type": "text", "id": "tag", "label": "Customer tag that grants access", "default": "pro" },
+    { "type": "text", "id": "note", "label": "Privacy note", "default": "Everything here is private." },
+    { "type": "header", "content": "Visitors without access" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Access" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Request an invitation." },
+    { "type": "text", "id": "request_heading", "label": "Form heading", "default": "Request access" },
+    { "type": "text", "id": "request_text", "label": "Form text", "default": "For selected Blackcaps and contracted pros. We'll be in touch." },
+    { "type": "text", "id": "request_button", "label": "Form button", "default": "Request access" },
+    { "type": "text", "id": "request_success", "label": "Success message", "default": "Request received. Pete will be in touch." },
+    { "type": "text", "id": "signin_heading", "label": "Sign-in heading", "default": "Already in?" },
+    { "type": "text", "id": "signin_text", "label": "Sign-in text", "default": "Sign in to book a repair." },
+    { "type": "text", "id": "signin_button", "label": "Sign-in button", "default": "Sign in" },
+    { "type": "text", "id": "pending_heading", "label": "Signed in, no access: heading", "default": "No access yet" },
+    { "type": "text", "id": "pending_text", "label": "Signed in, no access: text", "default": "Your account doesn't have Pro Corner access yet. Send a request and Pete will be in touch." },
+    { "type": "header", "content": "Approved pros" },
+    { "type": "text", "id": "member_eyebrow", "label": "Eyebrow", "default": "Pro Corner" },
+    { "type": "text", "id": "member_heading", "label": "Heading", "default": "Book a repair with Pete." },
+    { "type": "text", "id": "member_text", "label": "Text", "default": "Tell Pete what the bat needs. He'll come back to you directly." },
+    { "type": "text", "id": "booking_button", "label": "Form button", "default": "Send to Pete" },
+    { "type": "text", "id": "booking_success", "label": "Success message", "default": "Sent. Pete will be in touch." }
+  ],
+  "presets": [{ "name": "Grace Pro Corner access" }],
+  "enabled_on": { "templates": ["page"] }
+}
+{% endschema %}

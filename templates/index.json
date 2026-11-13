@@ -1,0 +1,115 @@
+{
+  "sections": {
+    "hero": {
+      "type": "grace-hero",
+      "settings": {
+        "eyebrow": "Grace Cricket · New Zealand",
+        "heading": "Win the <strong>next ball.</strong>",
+        "text": "Modern players' bats, built by the maker the country's best trust. Direct from Pete's hands to yours.",
+        "button_label": "Shop the bats",
+        "button_link": "shopify://collections/all",
+        "button_2_label": "Find your fit",
+        "button_2_link": "/pages/find-your-fit",
+        "show_scroll": true
+      }
+    },
+    "proof": {
+      "type": "grace-proof",
+      "blocks": {
+        "p1": { "type": "player", "settings": { "caption": "International" } },
+        "p2": { "type": "player", "settings": { "caption": "Blackcap" } },
+        "p3": { "type": "player", "settings": { "caption": "First-class" } },
+        "p4": { "type": "player", "settings": { "caption": "International" } },
+        "p5": { "type": "player", "settings": { "caption": "Domestic" } },
+        "p6": { "type": "player", "settings": { "caption": "Blackcap" } },
+        "p7": { "type": "player", "settings": { "caption": "First-class" } },
+        "p8": { "type": "player", "settings": { "caption": "International" } }
+      },
+      "block_order": ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8"],
+      "settings": {
+        "eyebrow": "In the game",
+        "heading": "Chosen by more of the country's best than any other.",
+        "background": "paper",
+        "speed": 50
+      }
+    },
+    "range": {
+      "type": "grace-range",
+      "settings": {
+        "eyebrow": "The bats",
+        "heading": "Three bats. One obsession.",
+        "text": "A modern players' range. Hand-built English willow, tuned to put more energy into the ball. No grades, figures up front.",
+        "limit": 3,
+        "view_label": "View",
+        "show_rule": false
+      }
+    },
+    "method": {
+      "type": "grace-method",
+      "blocks": {
+        "m1": { "type": "pillar", "settings": { "title": "Process", "text": "Organised steps, led by research into what the best players actually need." } },
+        "m2": { "type": "pillar", "settings": { "title": "Performance", "text": "A better bat through confidence and evidence. The relentless 1%." } },
+        "m3": { "type": "pillar", "settings": { "title": "Innovation", "text": "Constant evolution. Always adjusting the bat for improvement." } },
+        "m4": { "type": "pillar", "settings": { "title": "Data", "text": "Figures up front, chosen by more of the best than any other." } }
+      },
+      "block_order": ["m1", "m2", "m3", "m4"],
+      "settings": {
+        "eyebrow": "The method",
+        "heading": "The simplicity of something complex.",
+        "text": "Grace is chief engineer to the country's best. Every bat is the sum of a method Pete has spent a lifetime refining, chasing the 1% that turns an out into a six."
+      }
+    },
+    "compare": {
+      "type": "grace-compare",
+      "settings": {
+        "eyebrow": "Compare",
+        "heading": "Find your bat."
+      }
+    },
+    "why": {
+      "type": "grace-feature-list",
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "title": "A bigger middle.", "text": "More timber where it counts, so more of your shots find the sweet spot." } },
+        "f2": { "type": "feature", "settings": { "title": "Lighter than it looks.", "text": "Balanced to play lighter than the scale: faster hands, more control." } },
+        "f3": { "type": "feature", "settings": { "title": "The opposite of golf or tennis.", "text": "As the bat gets better, cricket gets easier for the ordinary player, not harder." } },
+        "f4": { "type": "feature", "settings": { "title": "The same bat the best trust.", "text": "No watered-down club version. You get the real thing." } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"],
+      "settings": {
+        "eyebrow": "Why a Grace bat",
+        "heading": "A pro's bat makes you better, not worse.",
+        "lead": "Where the difference is made",
+        "caption": "Grace / in the middle",
+        "image_side": "right",
+        "background": "paper"
+      }
+    },
+    "community": {
+      "type": "grace-community",
+      "blocks": {
+        "c1": { "type": "item", "settings": { "text": "Bat journal" } },
+        "c2": { "type": "item", "settings": { "text": "Training & how-to videos" } },
+        "c3": { "type": "item", "settings": { "text": "Coaching & mentoring" } }
+      },
+      "block_order": ["c1", "c2", "c3"],
+      "settings": {
+        "eyebrow": "The community",
+        "heading": "Share the wins with your players.",
+        "text": "Track your bat, learn from the best, and get closer to your game.",
+        "button_label": "Create your account"
+      }
+    },
+    "newsletter": {
+      "type": "grace-newsletter",
+      "settings": {
+        "eyebrow": "Stay close",
+        "heading": "First access to drops and player stories.",
+        "text": "No noise. Just the next ball.",
+        "placeholder": "Email address",
+        "button_label": "Join",
+        "success_text": "You're in. We'll be in touch."
+      }
+    }
+  },
+  "order": ["hero", "proof", "range", "method", "compare", "why", "community", "newsletter"]
+}

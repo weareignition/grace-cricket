@@ -1,0 +1,53 @@
+<div class="gr">
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot__grid">
+        <div class="foot__brand">
+          <span class="brand">{{ section.settings.wordmark | escape }}</span>
+          {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+        </div>
+        {%- for block in section.blocks -%}
+          <div class="foot__col" {{ block.shopify_attributes }}>
+            <b>{{ block.settings.heading | escape }}</b>
+            {%- for link in block.settings.menu.links -%}
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+            {%- endfor -%}
+            {%- if block.settings.menu.links.size == 0 and request.design_mode -%}
+              <a href="#">Choose a menu for this column</a>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="foot__base">
+        <span>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</span>
+        <span>
+          {%- for link in section.settings.base_menu.links -%}
+            <a href="{{ link.url }}">{{ link.title | escape }}</a>
+          {%- endfor -%}
+        </span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+{% schema %}
+{
+  "name": "Grace footer",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "wordmark", "label": "Wordmark", "default": "GRACE" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Modern players' bats, built in New Zealand. Win the next ball." },
+    { "type": "link_list", "id": "base_menu", "label": "Bottom links", "info": "Shown on the bottom line, for example Instagram, Shipping, Terms." }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Link column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    }
+  ]
+}
+{% endschema %}

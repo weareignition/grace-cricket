@@ -1,0 +1,33 @@
+<div class="gr">
+  <section class="ctaband">
+    <div class="wrap">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow | escape }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading | escape }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+      <div class="ctaband__btns">
+        {%- if section.settings.button_label != blank -%}
+          <a class="btn btn--solid" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a>
+        {%- endif -%}
+        {%- if section.settings.button_2_label != blank -%}
+          <a class="btn btn--ghost" href="{{ section.settings.button_2_link }}">{{ section.settings.button_2_label | escape }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Grace closing band",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Win the next ball" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The method is in every bat." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Find the one that's yours, or see the range." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Find your fit" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "text", "id": "button_2_label", "label": "Second button label", "default": "Shop the bats" },
+    { "type": "url", "id": "button_2_link", "label": "Second button link" }
+  ],
+  "presets": [{ "name": "Grace closing band" }]
+}
+{% endschema %}

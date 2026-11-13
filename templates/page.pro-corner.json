@@ -1,0 +1,47 @@
+{
+  "sections": {
+    "hero": {
+      "type": "grace-panel",
+      "settings": {
+        "badge": "Access required",
+        "eyebrow": "Pro Corner",
+        "heading": "For the country's best.",
+        "heading_level": "h1",
+        "text": "A private line to Pete. Repairs, re-shapes and servicing for selected Blackcaps and contracted pros. By request only.",
+        "align": "left",
+        "tone": "deep",
+        "height": "tall",
+        "button_label": "Request access",
+        "button_link": "#pro-access",
+        "button_2_label": "Sign in",
+        "button_2_link": "/account/login"
+      }
+    },
+    "inside": {
+      "type": "grace-feature-list",
+      "blocks": {
+        "i1": { "type": "feature", "settings": { "title": "Repairs and re-shapes.", "text": "Pete's hands on your bat, fast, wherever you are in a season." } },
+        "i2": { "type": "feature", "settings": { "title": "Priority servicing.", "text": "Front of the queue. Your kit is never the reason." } },
+        "i3": { "type": "feature", "settings": { "title": "A direct line.", "text": "Talk to the maker, not a shop." } },
+        "i4": { "type": "feature", "settings": { "title": "Complete discretion.", "text": "What happens in the Pro Corner stays in the Pro Corner." } }
+      },
+      "block_order": ["i1", "i2", "i3", "i4"],
+      "settings": {
+        "eyebrow": "Inside Pro Corner",
+        "heading": "The maker, on call.",
+        "lead": "What you get",
+        "caption": "Grace / the lab, closed doors",
+        "tile": "dark",
+        "image_side": "right",
+        "background": "paper"
+      }
+    },
+    "access": {
+      "type": "grace-pro-access",
+      "settings": {
+        "tag": "pro"
+      }
+    }
+  },
+  "order": ["hero", "inside", "access"]
+}

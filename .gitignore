@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Shopify CLI local state
+.shopify/
+
+# Theme release zips (the extracted source in this repo is the source of truth)
+*.zip
+
+# Environment and secrets
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

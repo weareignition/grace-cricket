@@ -1,0 +1,116 @@
+{
+  "sections": {
+    "main": {
+      "type": "grace-product",
+      "settings": {
+        "crumb_label": "Bats",
+        "price_label": "Direct price",
+        "variant_label": "Choose an option",
+        "add_label": "Add to bag",
+        "sold_out_label": "Sold out",
+        "fit_label": "Not sure? Find your fit",
+        "fit_link": "/pages/find-your-fit",
+        "direct_line": "Built by Pete. From his hands to yours.",
+        "made_line": "Hand-selected English willow · knocked in and ready to play · free NZ shipping",
+        "film_label": "Film",
+        "thumb_label": "Show image"
+      }
+    },
+    "features": {
+      "type": "grace-feature-list",
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "title": "Plays lighter than it weighs.", "text": "More mass, perfectly balanced, so more energy goes into the ball." } },
+        "f2": { "type": "feature", "settings": { "title": "The handle you can't buy anywhere else.", "text": "Pete's signature shape, perfected over hours with the country's top players." } },
+        "f3": { "type": "feature", "settings": { "title": "Hand-selected English willow.", "text": "No retail grades: Pete selects every cleft himself, and the price tells you where a bat sits." } },
+        "f4": { "type": "feature", "settings": { "title": "A bigger middle.", "text": "A pro's bat is lighter with a bigger middle, so you get more out of it, not less." } },
+        "f5": { "type": "feature", "settings": { "title": "Knocked in, ready to play.", "text": "Out of the wrapper and into the crease." } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4", "f5"],
+      "settings": {
+        "eyebrow": "Inside the bat",
+        "heading": "Everything works towards the next ball.",
+        "lead": "Features & Benefits",
+        "caption": "Grace / the profile",
+        "image_side": "right",
+        "background": "paper"
+      }
+    },
+    "specs": {
+      "type": "grace-specs",
+      "settings": {
+        "eyebrow": "Specifications",
+        "heading": "Figures up front.",
+        "text": "Every bat ships with its data. You know exactly what you're holding and why it was chosen for you. No retail grades, no bull.",
+        "card_label": "Grace / spec",
+        "footer": "Chosen by more of the country's best than any other."
+      }
+    },
+    "compare": {
+      "type": "grace-compare",
+      "settings": {
+        "eyebrow": "Compare",
+        "heading": "Find your bat."
+      }
+    },
+    "range": {
+      "type": "grace-range",
+      "settings": {
+        "eyebrow": "The range",
+        "heading": "Three bats. One obsession.",
+        "text": "",
+        "limit": 3,
+        "view_label": "View",
+        "show_rule": true
+      }
+    },
+    "proof": {
+      "type": "grace-proof",
+      "blocks": {
+        "p1": { "type": "player", "settings": { "caption": "International" } },
+        "p2": { "type": "player", "settings": { "caption": "Blackcap" } },
+        "p3": { "type": "player", "settings": { "caption": "First-class" } },
+        "p4": { "type": "player", "settings": { "caption": "International" } },
+        "p5": { "type": "player", "settings": { "caption": "Domestic" } },
+        "p6": { "type": "player", "settings": { "caption": "Blackcap" } },
+        "p7": { "type": "player", "settings": { "caption": "First-class" } },
+        "p8": { "type": "player", "settings": { "caption": "International" } }
+      },
+      "block_order": ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8"],
+      "settings": {
+        "eyebrow": "In the game",
+        "heading": "Chosen by more of the country's best than any other.",
+        "background": "mist",
+        "speed": 50
+      }
+    },
+    "cta": {
+      "type": "grace-dual-cta",
+      "blocks": {
+        "fit": {
+          "type": "panel",
+          "settings": {
+            "eyebrow": "Fitting",
+            "heading": "Find your fit.",
+            "text": "Answer a few questions and we'll match you to the right bat, the way the best get fitted.",
+            "button_label": "Start",
+            "button_link": "/pages/find-your-fit",
+            "tone": "blue"
+          }
+        },
+        "pro": {
+          "type": "panel",
+          "settings": {
+            "eyebrow": "Pro Corner",
+            "heading": "Book a repair with Pete.",
+            "text": "Access for selected Blackcaps and contracted pros. Something no other site offers.",
+            "button_label": "Request access",
+            "button_link": "/pages/pro-corner",
+            "tone": "dark"
+          }
+        }
+      },
+      "block_order": ["fit", "pro"]
+    }
+  },
+  "order": ["main", "features", "specs", "compare", "range", "proof", "cta"]
+}

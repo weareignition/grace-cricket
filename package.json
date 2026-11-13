@@ -1,0 +1,19 @@
+{
+  "name": "grace-cricket-theme",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Grace Cricket Shopify theme (Dawn 16.1.1 base)",
+  "scripts": {
+    "dev": "shopify theme dev",
+    "check": "shopify theme check",
+    "pull": "shopify theme pull",
+    "push": "shopify theme push --unpublished",
+    "list": "shopify theme list"
+  },
+  "devDependencies": {
+    "@shopify/cli": "^5.0.1"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

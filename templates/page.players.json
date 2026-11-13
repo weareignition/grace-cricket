@@ -1,0 +1,69 @@
+{
+  "sections": {
+    "hero": {
+      "type": "grace-page-hero",
+      "settings": {
+        "eyebrow": "Players",
+        "heading": "The company we keep.",
+        "text": "The best of the game know where to go. Their trust is the proof behind every Grace bat, and the reason we can say what most makers can't.",
+        "tight": true
+      }
+    },
+    "wall": {
+      "type": "grace-proof",
+      "blocks": {
+        "p1": { "type": "player", "settings": { "caption": "International" } },
+        "p2": { "type": "player", "settings": { "caption": "Blackcap" } },
+        "p3": { "type": "player", "settings": { "caption": "First-class" } },
+        "p4": { "type": "player", "settings": { "caption": "International" } },
+        "p5": { "type": "player", "settings": { "caption": "Domestic" } },
+        "p6": { "type": "player", "settings": { "caption": "Blackcap" } },
+        "p7": { "type": "player", "settings": { "caption": "First-class" } },
+        "p8": { "type": "player", "settings": { "caption": "International" } }
+      },
+      "block_order": ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8"],
+      "settings": {
+        "eyebrow": "",
+        "heading": "",
+        "background": "paper",
+        "layout": "wall",
+        "speed": 65
+      }
+    },
+    "trusted": {
+      "type": "grace-editorial",
+      "settings": {
+        "eyebrow": "Trusted",
+        "heading": "The best set the standard.",
+        "text": "<p>For years, the country's top players have trusted Pete's eye and his hands. What the best of the game demand is the standard every Grace bat is built to.</p><p>That trust doesn't stay at the top. The same standard, the same maker, comes to a club or masters player, direct.</p>",
+        "caption": "Grace / in the room",
+        "image_side": "right"
+      }
+    },
+    "statement": {
+      "type": "grace-panel",
+      "settings": {
+        "eyebrow": "The proof",
+        "heading": "Chosen by more of the country's best than any other.",
+        "heading_level": "h2",
+        "text": "",
+        "align": "centre",
+        "tone": "blue",
+        "height": "short"
+      }
+    },
+    "close": {
+      "type": "grace-cta-band",
+      "settings": {
+        "eyebrow": "Win the next ball",
+        "heading": "The same standard, in your hands.",
+        "text": "Get matched to the bat the best would pick, or, if you're a pro, head to the Pro Corner.",
+        "button_label": "Find your fit",
+        "button_link": "/pages/find-your-fit",
+        "button_2_label": "Pro Corner",
+        "button_2_link": "/pages/pro-corner"
+      }
+    }
+  },
+  "order": ["hero", "wall", "trusted", "statement", "close"]
+}

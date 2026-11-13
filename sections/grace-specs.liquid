@@ -1,0 +1,58 @@
+{%- liquid
+  assign specs = product.metafields.custom
+  assign has_specs = false
+  if specs.weight.value != blank or specs.balance.value != blank or specs.sweet_spot.value != blank or specs.handle.value != blank or specs.willow.value != blank or specs.knocking_in.value != blank
+    assign has_specs = true
+  endif
+-%}
+{%- if product != blank -%}
+  <div class="gr">
+    <section class="specs">
+      <div class="wrap">
+        <div class="specs__grid">
+          <div class="specs__txt">
+            {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow | escape }}</span>{%- endif -%}
+            {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading | escape }}</h2>{%- endif -%}
+            {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+          </div>
+          <div class="spec">
+            <div class="spec__hd"><b>{{ product.title | escape }}</b><span>{{ section.settings.card_label | escape }}</span></div>
+            {%- if specs.weight.value != blank -%}<div class="srow"><span class="k">{{ section.settings.label_weight | escape }}</span><span class="v">{{ specs.weight.value | escape }}</span></div>{%- endif -%}
+            {%- if specs.balance.value != blank -%}<div class="srow"><span class="k">{{ section.settings.label_balance | escape }}</span><span class="v">{{ specs.balance.value | escape }}</span></div>{%- endif -%}
+            {%- if specs.sweet_spot.value != blank -%}<div class="srow"><span class="k">{{ section.settings.label_sweet_spot | escape }}</span><span class="v">{{ specs.sweet_spot.value | escape }}</span></div>{%- endif -%}
+            {%- if specs.handle.value != blank -%}<div class="srow"><span class="k">{{ section.settings.label_handle | escape }}</span><span class="v">{{ specs.handle.value | escape }}</span></div>{%- endif -%}
+            {%- if specs.willow.value != blank -%}<div class="srow"><span class="k">{{ section.settings.label_willow | escape }}</span><span class="v">{{ specs.willow.value | escape }}</span></div>{%- endif -%}
+            {%- if specs.knocking_in.value != blank -%}<div class="srow"><span class="k">{{ section.settings.label_knocking_in | escape }}</span><span class="v">{{ specs.knocking_in.value | escape }}</span></div>{%- endif -%}
+            {%- if has_specs == false and request.design_mode -%}
+              <div class="srow"><span class="k">No specifications yet</span><span class="v">Add product metafields</span></div>
+            {%- endif -%}
+            {%- if section.settings.footer != blank -%}<div class="spec__ft">{{ section.settings.footer | escape }}</div>{%- endif -%}
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Grace specifications",
+  "settings": [
+    { "type": "paragraph", "content": "Rows come from product metafields: custom.weight, custom.balance, custom.sweet_spot, custom.handle, custom.willow, custom.knocking_in. A row is hidden when its metafield is empty." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Specifications" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Figures up front." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every bat ships with its data. You know exactly what you're holding and why it was chosen for you. No retail grades, no bull." },
+    { "type": "text", "id": "card_label", "label": "Card label", "default": "Grace / spec" },
+    { "type": "text", "id": "footer", "label": "Card footer", "default": "Chosen by more of the country's best than any other." },
+    { "type": "header", "content": "Row labels" },
+    { "type": "text", "id": "label_weight", "label": "Weight", "default": "Weight" },
+    { "type": "text", "id": "label_balance", "label": "Balance", "default": "Balance" },
+    { "type": "text", "id": "label_sweet_spot", "label": "Sweet spot", "default": "Sweet spot" },
+    { "type": "text", "id": "label_handle", "label": "Handle", "default": "Handle" },
+    { "type": "text", "id": "label_willow", "label": "Willow", "default": "Willow" },
+    { "type": "text", "id": "label_knocking_in", "label": "Knocking-in", "default": "Knocking-in" }
+  ],
+  "presets": [{ "name": "Grace specifications" }],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}

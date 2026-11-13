@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "quiz": {
+      "type": "grace-fit",
+      "settings": {}
+    }
+  },
+  "order": ["quiz"]
+}

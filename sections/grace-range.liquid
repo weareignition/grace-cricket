@@ -1,0 +1,60 @@
+{%- liquid
+  assign items = section.settings.products
+  if items == blank and section.settings.collection != blank
+    assign items = section.settings.collection.products
+  endif
+  if items == blank
+    assign items = collections.all.products
+  endif
+-%}
+<div class="gr">
+  <section class="sec{% if section.settings.show_rule %} sec--line{% endif %}">
+    <div class="wrap">
+      <div class="sec__head">
+        <div>
+          {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow | escape }}</span>{%- endif -%}
+          {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        </div>
+        {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+      </div>
+      <div class="bats">
+        {%- if items != blank -%}
+          {%- for item in items limit: section.settings.limit -%}
+            {%- render 'grace-product-card', card_product: item, index: forloop.index0, view_label: section.settings.view_label -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- comment -%} No products in the store yet: show the three bats as placeholders. {%- endcomment -%}
+          {%- assign sample_names = 'The Gracer|Tour Edition|Grace Full' | split: '|' -%}
+          {%- assign sample_fills = '#0B54CE,#0B0F2B,#B7BFD2' | split: ',' -%}
+          {%- for name in sample_names -%}
+            <div class="bat">
+              <div class="bat__img"><span class="bat__tag">{{ name }}</span>{%- render 'grace-bat', fill: sample_fills[forloop.index0] -%}</div>
+              <div class="bat__b">
+                <div class="bat__nm">{{ name }}</div>
+                <div class="bat__meta">Add this product in Shopify</div>
+                <div class="bat__row"><span class="bat__price">&nbsp;</span><span class="bat__link">{{ section.settings.view_label }} →</span></div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Grace bat range",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The bats" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Three bats. One obsession." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "A modern players' range. Hand-built English willow, tuned to put more energy into the ball. No grades, figures up front." },
+    { "type": "product_list", "id": "products", "label": "Products", "limit": 6, "info": "Leave empty to use the collection below, or all products if no collection is chosen." },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "limit", "label": "Maximum products", "min": 2, "max": 6, "step": 1, "default": 3 },
+    { "type": "text", "id": "view_label", "label": "Card link label", "default": "View" },
+    { "type": "checkbox", "id": "show_rule", "label": "Show top divider", "default": false }
+  ],
+  "presets": [{ "name": "Grace bat range" }]
+}
+{% endschema %}

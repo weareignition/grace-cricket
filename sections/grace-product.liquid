@@ -1,0 +1,132 @@
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign benefit = product.metafields.custom.benefit_headline.value
+  assign features = product.metafields.custom.features.value
+  assign crumb_link = section.settings.crumb_link | default: routes.all_products_collection_url
+-%}
+<div class="gr">
+  <div class="wrap">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="{{ crumb_link }}">{{ section.settings.crumb_label | escape }}</a> / {{ product.title | escape }}
+    </nav>
+  </div>
+
+  <section class="wrap" data-grace-product>
+    <div class="pdp">
+      <div class="gallery" data-grace-gallery>
+        <div class="gallery__main">
+          {%- if product.media.size > 0 -%}
+            {%- for media in product.media -%}
+              <div class="gallery__slide{% if forloop.first %} is-on{% endif %}" data-slide="{{ forloop.index0 }}">
+                {%- case media.media_type -%}
+                  {%- when 'image' -%}
+                    {%- if forloop.first -%}
+                      {{ media | image_url: width: 1600 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '600, 900, 1200, 1600', sizes: '(min-width: 900px) 50vw, 100vw', alt: media.alt }}
+                    {%- else -%}
+                      {{ media | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(min-width: 900px) 50vw, 100vw', alt: media.alt }}
+                    {%- endif -%}
+                  {%- when 'video' -%}
+                    {{ media | video_tag: controls: true, loop: true, muted: true, image_size: '1200x' }}
+                  {%- when 'external_video' -%}
+                    {{ media | external_video_tag }}
+                  {%- when 'model' -%}
+                    {{ media | model_viewer_tag }}
+                {%- endcase -%}
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            {%- render 'grace-bat', fill: '#0B54CE' -%}
+          {%- endif -%}
+        </div>
+        {%- if product.media.size > 1 -%}
+          <div class="thumbs">
+            {%- for media in product.media -%}
+              <button type="button" class="thumb{% if forloop.first %} thumb--active{% endif %}" data-thumb="{{ forloop.index0 }}" aria-label="{{ section.settings.thumb_label | escape }} {{ forloop.index }}">
+                {%- if media.preview_image -%}
+                  {{ media.preview_image | image_url: width: 300 | image_tag: loading: 'lazy', alt: '' }}
+                {%- endif -%}
+                {%- if media.media_type != 'image' -%}<span class="thumb__play">▶ {{ section.settings.film_label | escape }}</span>{%- endif -%}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="info">
+        {%- if product.type != blank -%}<span class="eyebrow">{{ product.type | escape }}</span>{%- endif -%}
+        <h1>{{ product.title | escape }}</h1>
+        {%- if benefit != blank -%}<div class="info__benefit">{{ benefit | escape }}</div>{%- endif -%}
+        {%- if product.description != blank -%}<div class="info__desc">{{ product.description }}</div>{%- endif -%}
+        {%- if features != blank -%}
+          <ul class="herofeat">
+            {%- for feature in features -%}<li>{{ feature | escape }}</li>{%- endfor -%}
+          </ul>
+        {%- elsif request.design_mode -%}
+          <p class="hint">Add the product metafields custom.benefit_headline and custom.features to show the headline and feature list here.</p>
+        {%- endif -%}
+
+        <div class="pprice">
+          <b data-price>{{ variant.price | money }}</b>
+          {%- if variant.compare_at_price > variant.price -%}<s>{{ variant.compare_at_price | money }}</s>{%- endif -%}
+          {%- if section.settings.price_label != blank -%}<span>{{ section.settings.price_label | escape }}</span>{%- endif -%}
+        </div>
+
+        {%- form 'product', product, class: 'buy' -%}
+          {%- if product.has_only_default_variant -%}
+            <input type="hidden" name="id" value="{{ variant.id }}">
+          {%- else -%}
+            <label class="buy__label" for="Variant-{{ section.id }}">{{ section.settings.variant_label | escape }}</label>
+            <select class="sel" id="Variant-{{ section.id }}" name="id" data-variant-select>
+              {%- for option in product.variants -%}
+                <option
+                  value="{{ option.id }}"
+                  data-price="{{ option.price | money | strip_html | escape }}"
+                  {% if option.id == variant.id %}selected{% endif %}
+                  {% unless option.available %}disabled{% endunless %}
+                >
+                  {{- option.title | escape -}}
+                  {%- unless option.available %} · {{ section.settings.sold_out_label | escape }}{% endunless -%}
+                </option>
+              {%- endfor -%}
+            </select>
+          {%- endif -%}
+          <button type="submit" name="add" class="btn btn--solid btn--block"{% unless variant.available %} disabled{% endunless %}>
+            {%- if variant.available -%}{{ section.settings.add_label | escape }}{%- else -%}{{ section.settings.sold_out_label | escape }}{%- endif -%}
+          </button>
+          {%- if section.settings.fit_label != blank -%}
+            <a class="btn btn--ghost btn--block" href="{{ section.settings.fit_link }}">{{ section.settings.fit_label | escape }}</a>
+          {%- endif -%}
+        {%- endform -%}
+
+        {%- if section.settings.direct_line != blank -%}<div class="direct">{{ section.settings.direct_line | escape }}</div>{%- endif -%}
+        {%- if section.settings.made_line != blank -%}<div class="made">{{ section.settings.made_line | escape }}</div>{%- endif -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+<script type="application/ld+json">
+  {{ product | structured_data }}
+</script>
+
+{% schema %}
+{
+  "name": "Grace product",
+  "settings": [
+    { "type": "paragraph", "content": "Headline and feature list come from product metafields: custom.benefit_headline (single line text) and custom.features (list of single line text). The eyebrow is the product type." },
+    { "type": "text", "id": "crumb_label", "label": "Breadcrumb label", "default": "Bats" },
+    { "type": "url", "id": "crumb_link", "label": "Breadcrumb link", "info": "Leave empty to link to all products." },
+    { "type": "text", "id": "price_label", "label": "Price label", "default": "Direct price" },
+    { "type": "text", "id": "variant_label", "label": "Variant dropdown label", "default": "Choose an option" },
+    { "type": "text", "id": "add_label", "label": "Add to bag label", "default": "Add to bag" },
+    { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Sold out" },
+    { "type": "text", "id": "fit_label", "label": "Second button label", "default": "Not sure? Find your fit" },
+    { "type": "url", "id": "fit_link", "label": "Second button link" },
+    { "type": "text", "id": "direct_line", "label": "Maker line", "default": "Built by Pete. From his hands to yours." },
+    { "type": "text", "id": "made_line", "label": "Reassurance line", "default": "Hand-selected English willow · knocked in and ready to play · free NZ shipping" },
+    { "type": "header", "content": "Gallery labels" },
+    { "type": "text", "id": "film_label", "label": "Film thumbnail label", "default": "Film" },
+    { "type": "text", "id": "thumb_label", "label": "Thumbnail accessibility label", "default": "Show image" }
+  ]
+}
+{% endschema %}
