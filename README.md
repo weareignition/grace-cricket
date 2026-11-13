@@ -41,6 +41,10 @@ It is safe to re-run. Definitions, products, the Bats collection and pages are o
 
 Product prices and copy in `scripts/store-data.mjs` are placeholders for previewing on a dev store. Customer accounts, the `pro` customer tag and theme editor images are still set by hand (setup notes, sections 7 and 8).
 
+## Testing from outside New Zealand
+
+The store sells to one market, New Zealand. From anywhere else, Add to bag fails with "The product is already sold out" even though the product page shows it in stock. To test the cart, pick **New Zealand** in the theme editor's context menu (next to the theme name), add to cart, then switch back to Store default and undo, so no New Zealand customisation is saved.
+
 ## Scripts
 
 | Command | What it does |

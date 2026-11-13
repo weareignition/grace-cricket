@@ -41,7 +41,8 @@
         "text": "A modern players' range. Hand-built English willow, tuned to put more energy into the ball. No grades, figures up front.",
         "limit": 3,
         "view_label": "View",
-        "show_rule": false
+        "show_rule": false,
+        "collection": "bats"
       }
     },
     "method": {
@@ -63,7 +64,8 @@
       "type": "grace-compare",
       "settings": {
         "eyebrow": "Compare",
-        "heading": "Find your bat."
+        "heading": "Find your bat.",
+        "collection": "bats"
       }
     },
     "why": {

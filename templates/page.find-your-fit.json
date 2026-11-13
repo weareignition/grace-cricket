@@ -2,7 +2,9 @@
   "sections": {
     "quiz": {
       "type": "grace-fit",
-      "settings": {}
+      "settings": {
+        "collection": "bats"
+      }
     }
   },
   "order": ["quiz"]

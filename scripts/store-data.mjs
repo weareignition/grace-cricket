@@ -53,7 +53,7 @@ export const products = [
     descriptionHtml: '<p>The lightest bat in the range, with a lower middle. Built for players who score through timing and placement.</p>',
     metafields: {
       benefit_headline: 'Timing and control, ball after ball.',
-      features: ['The lightest pick-up in the range', 'A lower middle for back-foot play', 'Knocked in and ready to play'],
+      features: ['The lightest pick-up in the range', 'A lower middle for front-foot timing', 'Knocked in and ready to play'],
       weight: '2lb 7oz',
       balance: 'Light, quick in the hands',
       sweet_spot: 'Low',
@@ -73,7 +73,7 @@ export const products = [
     descriptionHtml: '<p>A fuller profile with more weight behind the ball and a higher middle, for players who like to hit through the line.</p>',
     metafields: {
       benefit_headline: 'More weight behind every shot.',
-      features: ['A fuller profile with thick edges', 'A mid-to-high middle for front-foot hitting', 'Knocked in and ready to play'],
+      features: ['A fuller profile with thick edges', 'A higher middle for back-foot play and bounce', 'Knocked in and ready to play'],
       weight: '2lb 11oz',
       balance: 'Balanced to bottom-heavy',
       sweet_spot: 'Mid to high',

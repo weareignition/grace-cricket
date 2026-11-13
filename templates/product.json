@@ -49,7 +49,8 @@
       "type": "grace-compare",
       "settings": {
         "eyebrow": "Compare",
-        "heading": "Find your bat."
+        "heading": "Find your bat.",
+        "collection": "bats"
       }
     },
     "range": {
@@ -60,7 +61,8 @@
         "text": "",
         "limit": 3,
         "view_label": "View",
-        "show_rule": true
+        "show_rule": true,
+        "collection": "bats"
       }
     },
     "proof": {
