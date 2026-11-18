@@ -28,7 +28,7 @@
         {%- if shop.customer_accounts_enabled -%}
           <a class="nav__m-hide" href="{{ account_url }}">{{ section.settings.account_label | escape }}</a>
         {%- endif -%}
-        <a href="{{ routes.cart_url }}">{{ section.settings.bag_label | escape }} ({{ cart.item_count }})</a>
+        <a href="{{ routes.cart_url }}" data-grace-bag="{{ section.settings.bag_label | escape }}">{{ section.settings.bag_label | escape }} ({{ cart.item_count }})</a>
       </div>
 
       <details class="nav__mob">

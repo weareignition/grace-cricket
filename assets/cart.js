@@ -297,9 +297,11 @@ class CartItems extends window.StandardEvents.createViewEventElement(HTMLElement
           if (cartDrawerWrapper) cartDrawerWrapper.classList.toggle('is-empty', parsedState.item_count === 0);
 
           sectionsToRender.forEach((section) => {
-            const elementToReplace =
-              document.getElementById(section.id).querySelector(section.selector) ||
-              document.getElementById(section.id);
+            // Grace: the Grace header has no #cart-icon-bubble (grace.js updates its bag count),
+            // so skip any section whose element isn't on the page instead of throwing.
+            const container = document.getElementById(section.id);
+            if (!container) return;
+            const elementToReplace = container.querySelector(section.selector) || container;
             elementToReplace.innerHTML = this.getSectionInnerHTML(
               parsedState.sections[section.section],
               section.selector

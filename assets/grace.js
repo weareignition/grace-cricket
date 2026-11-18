@@ -231,4 +231,15 @@
   }
   /* Theme editor: re-run when a section is added or re-rendered. */
   document.addEventListener('shopify:section:load', function (event) { init(event.target); });
+
+  /* Keep the header's "Bag (n)" count in step when the cart page changes quantities. */
+  if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+    subscribe(PUB_SUB_EVENTS.cartUpdate, function (event) {
+      var count = event && event.cartData ? event.cartData.item_count : undefined;
+      if (typeof count !== 'number') return;
+      Array.prototype.forEach.call(document.querySelectorAll('[data-grace-bag]'), function (link) {
+        link.textContent = link.getAttribute('data-grace-bag') + ' (' + count + ')';
+      });
+    });
+  }
 })();
