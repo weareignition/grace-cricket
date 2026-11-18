@@ -66,7 +66,7 @@ Online Store, Navigation. The theme looks for these handles:
 | `footer-shop` | Footer column 1 | The bats, Gloves & grips, Find your fit, Gift cards |
 | `footer-brand` | Footer column 2 | The Method, Players, Pro Corner, About |
 | `footer-account` | Footer column 3 | Log in, My stats, Community, Support |
-| `footer` | Footer bottom line | Instagram, Shipping, Terms |
+| `footer` | Footer bottom line | Search, Instagram, Shipping, Terms |
 
 Menus can be swapped in the theme editor if different handles are used.
 
@@ -82,6 +82,8 @@ Create four pages and assign each its template (Online Store, Pages, open the pa
 | Pro Corner | `/pages/pro-corner` | `pro-corner` |
 
 The page body can stay empty. All content is in the template sections and is edited in the theme editor.
+
+The Bats collection uses the `bats` template (Products, Collections, Bats, Theme template): Grace bat cards in the collection's order, then the comparison and a link to the quiz.
 
 ## 6. Find your fit: how the match works
 

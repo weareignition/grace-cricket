@@ -88,7 +88,7 @@
         "button_label": "Find your fit",
         "button_link": "/pages/find-your-fit",
         "button_2_label": "Shop the bats",
-        "button_2_link": "shopify://collections/all"
+        "button_2_link": "shopify://collections/bats"
       }
     }
   },

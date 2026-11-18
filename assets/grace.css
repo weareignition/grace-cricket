@@ -280,6 +280,10 @@
 .gr .phero h1{font-family:var(--disp);font-weight:600;font-size:clamp(40px,6vw,84px);letter-spacing:-.03em;line-height:.98;margin:16px auto 0;max-width:15ch}
 .gr .phero p{color:var(--slate);max-width:56ch;margin:24px auto 0;font-size:19px}
 .gr .phero__cta{margin-top:34px}
+.gr .sec--flush{padding-top:0}
+.gr .pager{display:flex;justify-content:center;align-items:center;gap:24px;margin-top:52px;flex-wrap:wrap}
+.gr .pager__count{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate)}
+.gr .empty{text-align:center;color:var(--slate)}
 .gr .panel{position:relative;min-height:560px;display:flex;align-items:center;overflow:hidden;color:#fff;background:linear-gradient(120deg,#0B0F2B 0%,#0E2E86 52%,#0B54CE 122%)}
 .gr .panel--deep{background:linear-gradient(120deg,#070A1C 0%,#0B0F2B 34%,#0E2E86 92%,#0B54CE 130%)}
 .gr .panel--short{min-height:440px}

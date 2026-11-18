@@ -93,6 +93,7 @@ export const products = [
 export const collection = {
   handle: 'bats',
   title: 'Bats',
+  templateSuffix: 'bats',
   products: ['the-gracer', 'tour-edition', 'grace-full'],
 };
 
@@ -155,6 +156,7 @@ export const menus = [
     handle: 'footer',
     title: 'Footer menu',
     items: [
+      { title: 'Search', url: '/search' },
       { title: 'Instagram', todo: 'Instagram URL not supplied' },
       { title: 'Shipping', policy: 'SHIPPING_POLICY' },
       { title: 'Terms', policy: 'TERMS_OF_SERVICE' },

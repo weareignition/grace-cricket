@@ -1,0 +1,33 @@
+{
+  "sections": {
+    "main": {
+      "type": "grace-collection",
+      "settings": {
+        "eyebrow": "The range",
+        "show_description": true,
+        "per_page": 12,
+        "view_label": "View"
+      }
+    },
+    "compare": {
+      "type": "grace-compare",
+      "settings": {
+        "eyebrow": "Compare",
+        "heading": "Find your bat.",
+        "collection": "bats"
+      }
+    },
+    "close": {
+      "type": "grace-cta-band",
+      "settings": {
+        "eyebrow": "Not sure which?",
+        "heading": "Let the quiz pick.",
+        "text": "A few questions about how you play. One bat that suits it.",
+        "button_label": "Find your fit",
+        "button_link": "/pages/find-your-fit",
+        "button_2_label": ""
+      }
+    }
+  },
+  "order": ["main", "compare", "close"]
+}

@@ -9,8 +9,8 @@
 //
 // Safe to re-run:
 // - Metafield definitions, products, the collection and pages are created only
-//   when missing. Existing ones are left alone, except that a page's theme
-//   template is corrected if it is wrong.
+//   when missing. Existing ones are left alone, except that the theme template
+//   of a page or the Bats collection is corrected if it is wrong.
 // - Menus are set to the links in store-data.mjs, replacing whatever links the
 //   menu had. The old links are printed before they are replaced.
 //
@@ -243,16 +243,29 @@ function setupProducts(publicationId) {
 function setupCollection(productIds, publicationId) {
   heading('Bats collection');
   const found = gql(
-    `query($handle: String!) { collectionByIdentifier(identifier: { handle: $handle }) { id title } }`,
+    `query($handle: String!) { collectionByIdentifier(identifier: { handle: $handle }) { id title templateSuffix } }`,
     { handle: collection.handle },
   ).collectionByIdentifier;
 
   if (found) {
-    log(`  = ${found.title} exists`);
+    const was = found.templateSuffix || 'default';
+    if (found.templateSuffix === collection.templateSuffix) {
+      log(`  = ${found.title} exists with the ${collection.templateSuffix} template`);
+    } else if (dryRun) {
+      log(`  ~ would set ${found.title} to the ${collection.templateSuffix} template (currently ${was})`);
+    } else {
+      const res = gql(
+        `mutation($input: CollectionInput!) { collectionUpdate(input: $input) { collection { id } userErrors { field message } } }`,
+        { input: { id: found.id, templateSuffix: collection.templateSuffix } },
+        { mutation: true },
+      );
+      check(res.collectionUpdate, `Setting the ${found.title} template`);
+      log(`  ~ ${found.title} set to the ${collection.templateSuffix} template (was ${was})`);
+    }
     return found.id;
   }
   if (dryRun) {
-    log(`  + would create ${collection.title} (manual order: ${collection.products.join(', ')}) and publish it`);
+    log(`  + would create ${collection.title} with the ${collection.templateSuffix} template (manual order: ${collection.products.join(', ')}) and publish it`);
     return null;
   }
 
@@ -262,6 +275,7 @@ function setupCollection(productIds, publicationId) {
       input: {
         title: collection.title,
         handle: collection.handle,
+        templateSuffix: collection.templateSuffix,
         sortOrder: 'MANUAL',
         products: collection.products.map((h) => productIds[h]).filter(Boolean),
       },

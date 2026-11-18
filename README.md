@@ -37,7 +37,7 @@ npm run store:setup -- --store your-store.myshopify.com             # apply
 
 Use the store's permanent `.myshopify.com` address (for the dev store, `grace-cricket-7ri0412g.myshopify.com`). The login rejects an alias such as `grace-cricket.myshopify.com` and names the permanent address.
 
-It is safe to re-run. Definitions, products, the Bats collection and pages are only created when missing. A page's theme template is corrected if it is wrong. Menus are set to the links in `scripts/store-data.mjs`, and the old links are printed before they are replaced.
+It is safe to re-run. Definitions, products, the Bats collection and pages are only created when missing. The theme template of a page or the Bats collection is corrected if it is wrong. Menus are set to the links in `scripts/store-data.mjs`, and the old links are printed before they are replaced.
 
 Product prices and copy in `scripts/store-data.mjs` are placeholders for previewing on a dev store. Customer accounts, the `pro` customer tag and theme editor images are still set by hand (setup notes, sections 7 and 8).
 
