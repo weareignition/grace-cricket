@@ -11,6 +11,8 @@
 export const metafieldDefinitions = [
   { key: 'benefit_headline', name: 'Benefit headline', type: 'single_line_text_field', description: 'Product page headline; fit result line (fallback).' },
   { key: 'features', name: 'Features', type: 'list.single_line_text_field', description: 'Product page bullet list.' },
+  { key: 'lead_feature_title', name: 'Lead feature title', type: 'single_line_text_field', description: 'Product page feature list: bold lead-in of the first feature.' },
+  { key: 'lead_feature_text', name: 'Lead feature text', type: 'single_line_text_field', description: 'Product page feature list: text of the first feature.' },
   { key: 'weight', name: 'Weight', type: 'single_line_text_field', description: 'Spec card, comparison, cards, fit result.' },
   { key: 'balance', name: 'Balance', type: 'single_line_text_field', description: 'Spec card.' },
   { key: 'sweet_spot', name: 'Sweet spot', type: 'single_line_text_field', description: 'Spec card, fit result.' },
@@ -30,10 +32,12 @@ export const products = [
     title: 'The Gracer',
     productType: "Players' bat",
     price: '349.00',
-    descriptionHtml: "<p>Our all-round players' bat. Light in the hands, with a generous middle, and knocked in before it leaves the workshop.</p>",
+    descriptionHtml: "<p>Our all-round players' bat. Light in the hands, with a generous middle, and knocked in before it leaves the lab.</p>",
     metafields: {
       benefit_headline: 'More energy into every ball.',
       features: ['Plays lighter than the scale weight', 'A bigger middle for drives and pulls', 'Knocked in and ready to play'],
+      lead_feature_title: 'Plays lighter than it weighs.',
+      lead_feature_text: 'More mass, perfectly balanced, so more energy goes into the ball.',
       weight: '2lb 9oz',
       balance: 'Plays lighter than the scale',
       sweet_spot: 'Mid, bigger middle',
@@ -54,6 +58,8 @@ export const products = [
     metafields: {
       benefit_headline: 'Timing and control, ball after ball.',
       features: ['The lightest pick-up in the range', 'A lower middle for front-foot timing', 'Knocked in and ready to play'],
+      lead_feature_title: 'Light in the hands.',
+      lead_feature_text: 'The lightest pick-up in the range, for quick hands and clean timing.',
       weight: '2lb 7oz',
       balance: 'Light, quick in the hands',
       sweet_spot: 'Low',
@@ -74,6 +80,8 @@ export const products = [
     metafields: {
       benefit_headline: 'More weight behind every shot.',
       features: ['A fuller profile with thick edges', 'A higher middle for back-foot play and bounce', 'Knocked in and ready to play'],
+      lead_feature_title: 'Weight where it counts.',
+      lead_feature_text: 'More mass behind a higher middle, so a full swing carries further.',
       weight: '2lb 11oz',
       balance: 'Balanced to bottom-heavy',
       sweet_spot: 'Mid to high',

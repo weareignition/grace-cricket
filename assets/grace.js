@@ -145,11 +145,17 @@
       return total;
     }
 
+    /* How many scale values a bat lists. Fewer means a narrower, more specific bat. */
+    function spread(item) {
+      return String(item.pickup || '').split('|').filter(Boolean).length + String(item.sweet || '').split('|').filter(Boolean).length;
+    }
+
     function showResult() {
-      var bestIndex = 0, bestScore = -1;
+      /* Highest score wins. On a tie the narrower bat wins, as the closer match; after that, list order. */
+      var bestIndex = 0, bestScore = -1, bestSpread = Infinity;
       items.forEach(function (item, i) {
-        var s = score(item);
-        if (s > bestScore) { bestScore = s; bestIndex = i; }
+        var s = score(item), w = spread(item);
+        if (s > bestScore || (s === bestScore && w < bestSpread)) { bestScore = s; bestSpread = w; bestIndex = i; }
       });
       var item = items[bestIndex];
       root.querySelector('[data-fit-name]').textContent = item.title;

@@ -19,7 +19,7 @@
     "features": {
       "type": "grace-feature-list",
       "blocks": {
-        "f1": { "type": "feature", "settings": { "title": "Plays lighter than it weighs.", "text": "More mass, perfectly balanced, so more energy goes into the ball." } },
+        "f1": { "type": "feature", "settings": { "title": "{{ product.metafields.custom.lead_feature_title.value }}", "text": "{{ product.metafields.custom.lead_feature_text.value }}" } },
         "f2": { "type": "feature", "settings": { "title": "The handle you can't buy anywhere else.", "text": "Pete's signature shape, perfected over hours with the country's top players." } },
         "f3": { "type": "feature", "settings": { "title": "Hand-selected English willow.", "text": "No retail grades: Pete selects every cleft himself, and the price tells you where a bat sits." } },
         "f4": { "type": "feature", "settings": { "title": "A bigger middle.", "text": "A pro's bat is lighter with a bigger middle, so you get more out of it, not less." } },
