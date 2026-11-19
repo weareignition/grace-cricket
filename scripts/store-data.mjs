@@ -31,7 +31,7 @@ export const products = [
     handle: 'the-gracer',
     title: 'The Gracer',
     productType: "Players' bat",
-    price: '349.00',
+    price: '1999.00',
     descriptionHtml: "<p>Our all-round players' bat. Light in the hands, with a generous middle, and knocked in before it leaves the lab.</p>",
     metafields: {
       benefit_headline: 'More energy into every ball.',
@@ -53,7 +53,7 @@ export const products = [
     handle: 'tour-edition',
     title: 'Tour Edition',
     productType: "Players' bat",
-    price: '399.00',
+    price: '1999.00',
     descriptionHtml: '<p>The lightest bat in the range, with a lower middle. Built for players who score through timing and placement.</p>',
     metafields: {
       benefit_headline: 'Timing and control, ball after ball.',
@@ -75,7 +75,7 @@ export const products = [
     handle: 'grace-full',
     title: 'Grace Full',
     productType: "Players' bat",
-    price: '449.00',
+    price: '1999.00',
     descriptionHtml: '<p>A fuller profile with more weight behind the ball and a higher middle, for players who like to hit through the line.</p>',
     metafields: {
       benefit_headline: 'More weight behind every shot.',
