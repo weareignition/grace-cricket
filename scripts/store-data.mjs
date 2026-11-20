@@ -173,7 +173,7 @@ export const menus = [
     title: 'Footer menu',
     items: [
       { title: 'Search', url: '/search' },
-      { title: 'Instagram', todo: 'Instagram URL not supplied' },
+      { title: 'Instagram', url: 'https://www.instagram.com/grace_cricketnz/' },
       { title: 'Shipping', policy: 'SHIPPING_POLICY' },
       { title: 'Terms', policy: 'TERMS_OF_SERVICE' },
     ],
