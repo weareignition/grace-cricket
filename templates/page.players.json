@@ -33,6 +33,7 @@
     "trusted": {
       "type": "grace-editorial",
       "settings": {
+        "image": "shopify://shop_images/grace-ig-pro-blade.jpg",
         "eyebrow": "Trusted",
         "heading": "The best set the standard.",
         "text": "<p>For years, the country's top players have trusted Pete's eye and his hands. What the best of the game demand is the standard every Grace bat is built to.</p><p>That trust doesn't stay at the top. The same standard, the same maker, comes to a club or masters player, direct.</p>",

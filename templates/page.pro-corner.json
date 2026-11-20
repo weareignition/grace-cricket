@@ -27,6 +27,7 @@
       },
       "block_order": ["i1", "i2", "i3", "i4"],
       "settings": {
+        "image": "shopify://shop_images/grace-ig-tour-issue-blade.jpg",
         "eyebrow": "Inside Pro Corner",
         "heading": "The maker, on call.",
         "lead": "What you get",

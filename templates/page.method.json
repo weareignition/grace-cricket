@@ -49,6 +49,7 @@
       },
       "block_order": ["a1", "a2", "a3", "a4"],
       "settings": {
+        "image": "shopify://shop_images/grace-ig-bats-in-the-making.jpg",
         "eyebrow": "Art and science",
         "heading": "Pete's hands. The data's proof.",
         "lead": "Where the two meet",

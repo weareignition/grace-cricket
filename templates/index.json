@@ -79,6 +79,7 @@
       },
       "block_order": ["f1", "f2", "f3", "f4"],
       "settings": {
+        "image": "shopify://shop_images/grace-ig-three-junior-bats.jpg",
         "eyebrow": "Why a Grace bat",
         "heading": "A pro's bat makes you better, not worse.",
         "lead": "Where the difference is made",
